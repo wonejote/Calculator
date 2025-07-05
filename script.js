@@ -1,6 +1,90 @@
+//variables basicas--------------------------
+let operandoUno = "";
+let operandoDos = "";
+let operacion = "";
+let contador = 0;
+//-------------------------------------------
+//DOM Elementos------------------------------
+const digitoElement = document.querySelectorAll(".digito");
+const operacionELement = document.querySelectorAll(".operador");
+const pantallaElement = document.querySelector("#iptPantalla"); 
+//-------------------------------------------
 // funciones operacions-----------------------
-function suma(a,b) {return a+b;}
-function resta(a,b) {return a-b;}
-function multiplicacion(a,b) {return a*b;}
-function division(a,b) {return a/b;}
-//--------------------------------------
+function sumaF(a,b) {return a+b;}
+function restaF(a,b) {return a-b;}
+function multiplicacionF(a,b) {return a*b;}
+function divisionF(a,b) {return a/b;}
+
+function del()
+{
+    let newStr  = pantallaElement.textContent.split("");
+    newStr.pop();
+    newStr = newStr.join("");
+    pantallaElement.textContent = newStr;
+}
+
+function sumaC()
+{   
+    if (operandoUno == "") {operandoUno = Number(pantallaElement.textContent);}
+    else if (operandoDos == "") {operandoDos = Number(pantallaElement.textContent);}
+    pantallaElement.textContent = "";
+    if (operacion == "") {operacion = "sumar"}
+    
+    if (contador > 0 ){igual(operacion);}
+    contador ++;   
+}
+
+function igual(operacion)
+{
+    if (operandoUno != "" && pantallaElement.textContent != "" && operacion != "")
+    {   operandoDos = Number(pantallaElement.textContent)
+        switch(operacion)
+        {
+            case "sumar": let nuevo =sumaF(operandoUno,operandoDos);
+            operandoUno = nuevo;
+            pantallaElement.textContent = operandoUno;
+            contador = 0;
+            operacion = "";
+            break;
+        }
+    }
+    else
+    operandoDos = Number(pantallaElement.textContent)
+    switch(operacion)
+        {   
+            case "sumar": let nuevo =sumaF(operandoUno,operandoDos);
+            operandoUno = nuevo;
+            pantallaElement.textContent = operandoUno;
+            contador = 0;
+            operacion = "";
+            alert("aaaaa");
+            break;
+        }
+}
+
+//-------------------------------------------
+//listeners----------------------------------
+digitoElement.forEach(function(btn)
+{btn.addEventListener("click",function(){
+pantallaElement.textContent += btn.dataset.val;})});
+
+operacionELement.forEach(function(btn){
+    btn.addEventListener("click",function()
+{
+    switch(btn.value){
+
+        case "suma": sumaC(); break;
+        case "resta": alert("resta"); break;
+        case "multiplicacion": alert("multy");break;
+        case "borrar": del(); break;
+        case "igual": igual();break;
+
+        default: alert("no vale  esto");
+
+    }
+
+    
+})
+})
+
+

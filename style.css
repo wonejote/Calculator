@@ -1,0 +1,36 @@
+#container{
+    display: flex;
+    flex-flow: column;
+    flex-wrap: wrap;
+    border: 1px solid black;
+    width: 120px;
+    height: 200px;
+    padding: 5px;
+}
+
+#pantalla
+{
+    width: 110px;
+    border: 1px solid black;
+    height: 30px;
+    display: flex;
+    padding: 1px 3px;
+    /*justify-content:flex-end*/
+    margin-bottom: 5px;
+    
+}
+#iptPantalla
+{
+    margin-top: auto;
+    margin-left: auto;
+}
+
+button
+{
+    width: 30px;
+    
+}
+
+#btnContainer{
+margin-left:  12px;
+}
