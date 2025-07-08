@@ -3,10 +3,12 @@ let operandoUno = "";
 let operandoDos = "";
 let operacion = "";
 let contador = 0;
+let estado = "";
 //-------------------------------------------
 //DOM Elementos------------------------------
 const digitoElement = document.querySelectorAll(".digito");
 const operacionELement = document.querySelectorAll(".operador");
+const accionElement = document.querySelectorAll(".accion");
 const pantallaElement = document.querySelector("#iptPantalla"); 
 const oper1 = document.querySelector("#oper1");
 const oper2 = document.querySelector("#oper2")
@@ -40,79 +42,6 @@ function del()
 }
 
 
-function sumaC()
-{   
-    if (operandoUno == "") {
-        operandoUno = Number(pantallaElement.textContent);
-    }
-
-    if (contador > 0){
-        igual(); 
-    }
-
-    if (operacion == "") {
-        operacion = "sumar";
-    }
-
-    pantallaElement.textContent = ""; 
-    contador++;   
-}
-
-
-function restaC()
-{   
-    if (operandoUno == "") {
-        operandoUno = Number(pantallaElement.textContent);
-    }
-    
-    if (contador > 0){
-        igual(); 
-    }
-
-    if (operacion == "") {
-        operacion = "restar";
-    }
-
-    pantallaElement.textContent = ""; 
-    contador++;   
-}
-
-
-function multiplicacionC()
-{   
-    if (operandoUno == "") {
-        operandoUno = Number(pantallaElement.textContent);
-    }
-    
-    if (contador > 0){
-        igual(); 
-    }
-
-    if (operacion == "") {
-        operacion = "multiplicar";
-    }
-
-    pantallaElement.textContent = ""; 
-    contador++;   
-}
-
-function divisionC()
-{   
-    if (operandoUno == "") {
-        operandoUno = Number(pantallaElement.textContent);
-    }
-    
-    if (contador > 0){
-        igual(); 
-    }
-
-    if (operacion == "") {
-        operacion = "dividir";
-    }
-
-    pantallaElement.textContent = ""; 
-    contador++;   
-}
 function igual() {
     if (operandoUno != "" && operacion != "") {
         if (operandoDos == "") {
@@ -141,6 +70,7 @@ function igual() {
         contador = 0;
         operacion = "";
         operandoDos = ""; 
+        estado = "finalizado";
         
     }
 }
@@ -150,25 +80,65 @@ function igual() {
 //listeners----------------------------------
 digitoElement.forEach(function(btn)
 {btn.addEventListener("click",function(){
+if (estado == ""){
 pantallaElement.textContent += btn.dataset.val
-;})
+;}
+else if( estado != ""){
+     operandoDos = "";
+     operandoUno = "";
+     operacion = "";
+     contador = "";
+     pantallaElement.textContent = btn.dataset.val;
+     estado = "";
+}
+
+})
 
 });
 
 operacionELement.forEach(function(btn){
     btn.addEventListener("click",function()
 {
+    if (operandoUno == "") {operandoUno = Number(pantallaElement.textContent);}
+    
+    if (contador > 0){igual(); }
+
+    pantallaElement.textContent = ""; 
+    contador++;   
+    if (estado != "") {estado = "";}
     switch(btn.value){
 
-        case "suma": sumaC(); break;
-        case "resta": restaC(); break;
-        case "multiplicacion":multiplicacionC(); break;
-        case "division": divisionC(); break;
-        case "borrar": del(); break;
-        case "igual": igual();break;
+
+        case "suma": if (operacion == "") {operacion = "sumar";} break;
+        
+        case "resta": if (operacion == "") {operacion = "restar";} break;
+
+        case "multiplicacion": if (operacion == "") {operacion = "multiplicar";} break;
+
+        case "division": if (operacion == "") { operacion = "dividir"; } break;
     }
 
     
+})
+})
+
+accionElement.forEach(function(btn){
+btn.addEventListener("click",function()
+{ 
+  switch(btn.value)
+    {
+         case "igual": igual();break;
+         case "borrar": del();break;
+         case "limpiar":
+            operandoDos = "";
+            operandoUno = "";
+            operacion = "";
+            contador = "";
+            pantallaElement.textContent = "";
+            estado = "";
+            break;         
+    }
+        
 })
 })
 
