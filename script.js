@@ -45,9 +45,6 @@ function sumaC()
     if (operandoUno == "") {
         operandoUno = Number(pantallaElement.textContent);
     }
-    else if (operandoDos == "") {
-        operandoDos = Number(pantallaElement.textContent);
-    }
 
     if (contador > 0){
         igual(); 
@@ -67,10 +64,7 @@ function restaC()
     if (operandoUno == "") {
         operandoUno = Number(pantallaElement.textContent);
     }
-    else if (operandoDos == "") {
-        operandoDos = Number(pantallaElement.textContent);
-    }
-
+    
     if (contador > 0){
         igual(); 
     }
@@ -83,6 +77,42 @@ function restaC()
     contador++;   
 }
 
+
+function multiplicacionC()
+{   
+    if (operandoUno == "") {
+        operandoUno = Number(pantallaElement.textContent);
+    }
+    
+    if (contador > 0){
+        igual(); 
+    }
+
+    if (operacion == "") {
+        operacion = "multiplicar";
+    }
+
+    pantallaElement.textContent = ""; 
+    contador++;   
+}
+
+function divisionC()
+{   
+    if (operandoUno == "") {
+        operandoUno = Number(pantallaElement.textContent);
+    }
+    
+    if (contador > 0){
+        igual(); 
+    }
+
+    if (operacion == "") {
+        operacion = "dividir";
+    }
+
+    pantallaElement.textContent = ""; 
+    contador++;   
+}
 function igual() {
     if (operandoUno != "" && operacion != "") {
         if (operandoDos == "") {
@@ -98,6 +128,12 @@ function igual() {
             case "restar":
                 nuevo = restaF(operandoUno, operandoDos);
                 break;
+            case "multiplicar":
+                nuevo = multiplicacionF(operandoUno, operandoDos);
+                break;
+            case "dividir":
+                nuevo = divisionF(operandoUno, operandoDos);
+                break;
         }
 
         operandoUno = nuevo;
@@ -105,6 +141,7 @@ function igual() {
         contador = 0;
         operacion = "";
         operandoDos = ""; 
+        
     }
 }
 
@@ -113,7 +150,8 @@ function igual() {
 //listeners----------------------------------
 digitoElement.forEach(function(btn)
 {btn.addEventListener("click",function(){
-pantallaElement.textContent += btn.dataset.val;})
+pantallaElement.textContent += btn.dataset.val
+;})
 
 });
 
@@ -124,12 +162,10 @@ operacionELement.forEach(function(btn){
 
         case "suma": sumaC(); break;
         case "resta": restaC(); break;
-        case "multiplicacion": alert("multy");break;
+        case "multiplicacion":multiplicacionC(); break;
+        case "division": divisionC(); break;
         case "borrar": del(); break;
         case "igual": igual();break;
-
-        default: alert("no vale  esto");
-
     }
 
     
