@@ -8,6 +8,22 @@ let contador = 0;
 const digitoElement = document.querySelectorAll(".digito");
 const operacionELement = document.querySelectorAll(".operador");
 const pantallaElement = document.querySelector("#iptPantalla"); 
+const oper1 = document.querySelector("#oper1");
+const oper2 = document.querySelector("#oper2")
+
+
+
+
+function actualizarLabel() {
+    oper1.textContent = operandoUno;
+    oper2.textContent = operandoDos;
+    
+}
+
+// Incrementa la variable cada segundo y actualiza el texto
+setInterval(() => {
+    actualizarLabel();
+}, 1000);
 //-------------------------------------------
 // funciones operacions-----------------------
 function sumaF(a,b) {return a+b;}
@@ -23,50 +39,83 @@ function del()
     pantallaElement.textContent = newStr;
 }
 
+
 function sumaC()
 {   
-    if (operandoUno == "") {operandoUno = Number(pantallaElement.textContent);}
-    else if (operandoDos == "") {operandoDos = Number(pantallaElement.textContent);}
-    pantallaElement.textContent = "";
-    if (operacion == "") {operacion = "sumar"}
-    
-    if (contador > 0 ){igual(operacion);}
-    contador ++;   
+    if (operandoUno == "") {
+        operandoUno = Number(pantallaElement.textContent);
+    }
+    else if (operandoDos == "") {
+        operandoDos = Number(pantallaElement.textContent);
+    }
+
+    if (contador > 0){
+        igual(); 
+    }
+
+    if (operacion == "") {
+        operacion = "sumar";
+    }
+
+    pantallaElement.textContent = ""; 
+    contador++;   
 }
 
-function igual(operacion)
-{
-    if (operandoUno != "" && pantallaElement.textContent != "" && operacion != "")
-    {   operandoDos = Number(pantallaElement.textContent)
-        switch(operacion)
-        {
-            case "sumar": let nuevo =sumaF(operandoUno,operandoDos);
-            operandoUno = nuevo;
-            pantallaElement.textContent = operandoUno;
-            contador = 0;
-            operacion = "";
-            break;
-        }
+
+function restaC()
+{   
+    if (operandoUno == "") {
+        operandoUno = Number(pantallaElement.textContent);
     }
-    else
-    operandoDos = Number(pantallaElement.textContent)
-    switch(operacion)
-        {   
-            case "sumar": let nuevo =sumaF(operandoUno,operandoDos);
-            operandoUno = nuevo;
-            pantallaElement.textContent = operandoUno;
-            contador = 0;
-            operacion = "";
-            alert("aaaaa");
-            break;
-        }
+    else if (operandoDos == "") {
+        operandoDos = Number(pantallaElement.textContent);
+    }
+
+    if (contador > 0){
+        igual(); 
+    }
+
+    if (operacion == "") {
+        operacion = "restar";
+    }
+
+    pantallaElement.textContent = ""; 
+    contador++;   
 }
+
+function igual() {
+    if (operandoUno != "" && operacion != "") {
+        if (operandoDos == "") {
+            operandoDos = Number(pantallaElement.textContent);
+        }
+
+        let nuevo;
+
+        switch (operacion) {
+            case "sumar":
+                nuevo = sumaF(operandoUno, operandoDos);
+                break;
+            case "restar":
+                nuevo = restaF(operandoUno, operandoDos);
+                break;
+        }
+
+        operandoUno = nuevo;
+        pantallaElement.textContent = operandoUno;
+        contador = 0;
+        operacion = "";
+        operandoDos = ""; 
+    }
+}
+
 
 //-------------------------------------------
 //listeners----------------------------------
 digitoElement.forEach(function(btn)
 {btn.addEventListener("click",function(){
-pantallaElement.textContent += btn.dataset.val;})});
+pantallaElement.textContent += btn.dataset.val;})
+
+});
 
 operacionELement.forEach(function(btn){
     btn.addEventListener("click",function()
@@ -74,7 +123,7 @@ operacionELement.forEach(function(btn){
     switch(btn.value){
 
         case "suma": sumaC(); break;
-        case "resta": alert("resta"); break;
+        case "resta": restaC(); break;
         case "multiplicacion": alert("multy");break;
         case "borrar": del(); break;
         case "igual": igual();break;
