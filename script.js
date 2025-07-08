@@ -38,28 +38,19 @@ function igual(operacion)
 {
     if (operandoUno != "" && pantallaElement.textContent != "" && operacion != "")
     {   operandoDos = Number(pantallaElement.textContent)
+
+        let nuevo
         switch(operacion)
         {
-            case "sumar": let nuevo =sumaF(operandoUno,operandoDos);
-            operandoUno = nuevo;
+            case "sumar": nuevo =sumaF(operandoUno,operandoDos);
+            break;
+        }
+        operandoUno = nuevo;
             pantallaElement.textContent = operandoUno;
             contador = 0;
             operacion = "";
-            break;
-        }
     }
-    else
-    operandoDos = Number(pantallaElement.textContent)
-    switch(operacion)
-        {   
-            case "sumar": let nuevo =sumaF(operandoUno,operandoDos);
-            operandoUno = nuevo;
-            pantallaElement.textContent = operandoUno;
-            contador = 0;
-            operacion = "";
-            alert("aaaaa");
-            break;
-        }
+    
 }
 
 //-------------------------------------------
